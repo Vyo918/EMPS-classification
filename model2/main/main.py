@@ -221,7 +221,7 @@ for epoch in range(epochs):
     acc = evaluate(model, test_dataloader, loss_fn, device)
     if acc > best_acc:
         best_acc = acc
-        torch.save(model.state_dict(), f"best_main.pth")
+        # torch.save(model.state_dict(), f"best_main.pth")
         print(f"New best model saved with accuracy: {best_acc:.2f}%")
     print()
 
