@@ -1,0 +1,151 @@
+Epoch 1/20
+----------
+100%|██████████| 949/949 [03:35<00:00,  4.40it/s]
+Training Loss: 0.7015, Accuracy: 75.70%
+Evaluating...
+100%|██████████| 238/238 [01:01<00:00,  3.88it/s]
+Test Loss: 0.5716, Accuracy: 79.45%
+New best model saved with accuracy: 79.45%
+Epoch 2/20
+----------
+100%|██████████| 949/949 [03:36<00:00,  4.39it/s]
+Training Loss: 0.4724, Accuracy: 83.71%
+Evaluating...
+100%|██████████| 238/238 [00:52<00:00,  4.53it/s]
+Test Loss: 0.3765, Accuracy: 87.18%
+New best model saved with accuracy: 87.18%
+Epoch 3/20
+----------
+100%|██████████| 949/949 [03:35<00:00,  4.41it/s]
+Training Loss: 0.4163, Accuracy: 85.33%
+Evaluating...
+100%|██████████| 238/238 [00:53<00:00,  4.42it/s]
+Test Loss: 0.3536, Accuracy: 88.24%
+New best model saved with accuracy: 88.24%
+Epoch 4/20
+----------
+100%|██████████| 949/949 [03:33<00:00,  4.44it/s]
+Training Loss: 0.3688, Accuracy: 86.81%
+Evaluating...
+100%|██████████| 238/238 [00:52<00:00,  4.52it/s]
+Test Loss: 0.3734, Accuracy: 87.24%
+Epoch 5/20
+----------
+100%|██████████| 949/949 [03:35<00:00,  4.40it/s]
+Training Loss: 0.3446, Accuracy: 87.95%
+Evaluating...
+100%|██████████| 238/238 [00:51<00:00,  4.58it/s]
+Test Loss: 0.2867, Accuracy: 90.39%
+New best model saved with accuracy: 90.39%
+Epoch 6/20
+----------
+100%|██████████| 949/949 [03:25<00:00,  4.61it/s]
+Training Loss: 0.2830, Accuracy: 90.01%
+Evaluating...
+100%|██████████| 238/238 [00:49<00:00,  4.82it/s]
+Test Loss: 0.2530, Accuracy: 91.60%
+New best model saved with accuracy: 91.60%
+Epoch 7/20
+----------
+100%|██████████| 949/949 [03:21<00:00,  4.70it/s]
+Training Loss: 0.2601, Accuracy: 90.87%
+Evaluating...
+100%|██████████| 238/238 [00:48<00:00,  4.87it/s]
+Test Loss: 0.2434, Accuracy: 91.68%
+New best model saved with accuracy: 91.68%
+Epoch 8/20
+----------
+100%|██████████| 949/949 [03:22<00:00,  4.68it/s]
+Training Loss: 0.2585, Accuracy: 90.72%
+Evaluating...
+100%|██████████| 238/238 [00:48<00:00,  4.91it/s]
+Test Loss: 0.2453, Accuracy: 91.68%
+Epoch 9/20
+----------
+100%|██████████| 949/949 [03:47<00:00,  4.17it/s]
+Training Loss: 0.2495, Accuracy: 91.31%
+Evaluating...
+100%|██████████| 238/238 [00:51<00:00,  4.61it/s]
+Test Loss: 0.2431, Accuracy: 91.82%
+New best model saved with accuracy: 91.82%
+Epoch 10/20
+----------
+100%|██████████| 949/949 [03:35<00:00,  4.41it/s]
+Training Loss: 0.2439, Accuracy: 91.18%
+Evaluating...
+100%|██████████| 238/238 [00:48<00:00,  4.87it/s]
+Test Loss: 0.2355, Accuracy: 91.97%
+New best model saved with accuracy: 91.97%
+Epoch 11/20
+----------
+100%|██████████| 949/949 [03:22<00:00,  4.68it/s]
+Training Loss: 0.2368, Accuracy: 91.60%
+Evaluating...
+100%|██████████| 238/238 [00:49<00:00,  4.84it/s]
+Test Loss: 0.2325, Accuracy: 92.27%
+New best model saved with accuracy: 92.27%
+Epoch 12/20
+----------
+100%|██████████| 949/949 [03:24<00:00,  4.65it/s]
+Training Loss: 0.2365, Accuracy: 91.56%
+Evaluating...
+100%|██████████| 238/238 [00:48<00:00,  4.91it/s]
+Test Loss: 0.2312, Accuracy: 92.34%
+New best model saved with accuracy: 92.34%
+Epoch 13/20
+----------
+100%|██████████| 949/949 [03:25<00:00,  4.61it/s]
+Training Loss: 0.2325, Accuracy: 91.88%
+Evaluating...
+100%|██████████| 238/238 [00:48<00:00,  4.86it/s]
+Test Loss: 0.2311, Accuracy: 92.09%
+Epoch 14/20
+----------
+100%|██████████| 949/949 [03:20<00:00,  4.74it/s]
+Training Loss: 0.2311, Accuracy: 91.93%
+Evaluating...
+100%|██████████| 238/238 [00:48<00:00,  4.86it/s]
+Test Loss: 0.2315, Accuracy: 92.21%
+Epoch 15/20
+----------
+100%|██████████| 949/949 [03:20<00:00,  4.73it/s]
+Training Loss: 0.2344, Accuracy: 91.72%
+Evaluating...
+100%|██████████| 238/238 [00:49<00:00,  4.83it/s]
+Test Loss: 0.2310, Accuracy: 92.15%
+Epoch 16/20
+----------
+100%|██████████| 949/949 [03:24<00:00,  4.63it/s]
+Training Loss: 0.2333, Accuracy: 91.84%
+Evaluating...
+100%|██████████| 238/238 [00:48<00:00,  4.92it/s]
+Test Loss: 0.2302, Accuracy: 92.28%
+Epoch 17/20
+----------
+100%|██████████| 949/949 [03:20<00:00,  4.74it/s]
+Training Loss: 0.2327, Accuracy: 91.76%
+Evaluating...
+100%|██████████| 238/238 [00:48<00:00,  4.94it/s]
+Test Loss: 0.2309, Accuracy: 92.19%
+Epoch 18/20
+----------
+100%|██████████| 949/949 [03:20<00:00,  4.73it/s]
+Training Loss: 0.2308, Accuracy: 91.98%
+Evaluating...
+100%|██████████| 238/238 [00:48<00:00,  4.92it/s]
+Test Loss: 0.2310, Accuracy: 92.11%
+Epoch 19/20
+----------
+100%|██████████| 949/949 [03:26<00:00,  4.61it/s]
+Training Loss: 0.2335, Accuracy: 91.82%
+Evaluating...
+100%|██████████| 238/238 [00:49<00:00,  4.77it/s]
+Test Loss: 0.2317, Accuracy: 92.26%
+Epoch 20/20
+----------
+100%|██████████| 949/949 [03:26<00:00,  4.60it/s]
+Training Loss: 0.2298, Accuracy: 91.88%
+Evaluating...
+100%|██████████| 238/238 [00:51<00:00,  4.64it/s]
+Test Loss: 0.2309, Accuracy: 92.31%
+Making Predictions: 100%|██████████| 238/238 [00:50<00:00,  4.73it/s]

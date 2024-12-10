@@ -1,0 +1,50 @@
+Using device: cuda:0
+Device name: NVIDIA GeForce RTX 3050 Laptop GPU
+Model's device:  cuda:0
+Epoch 1/10
+                                                           
+Train Loss: 2.5547, Train Acc: 0.1075
+Val Loss: 2.5266, Val Acc: 0.1389
+Saved Best Model with Acc: 0.1389
+Epoch 2/10
+                                                           
+Train Loss: 2.5004, Train Acc: 0.1605
+Val Loss: 2.4577, Val Acc: 0.2073
+Saved Best Model with Acc: 0.2073
+Epoch 3/10
+                                                           
+Train Loss: 2.4504, Train Acc: 0.2201
+Val Loss: 2.4031, Val Acc: 0.2692
+Saved Best Model with Acc: 0.2692
+Epoch 4/10
+                                                           
+Train Loss: 2.4527, Train Acc: 0.2029
+Val Loss: 2.5660, Val Acc: 0.0812
+Epoch 5/10
+                                                           
+Train Loss: 2.4857, Train Acc: 0.1542
+Val Loss: 2.5657, Val Acc: 0.0812
+Epoch 6/10
+                                                           
+Train Loss: 2.4729, Train Acc: 0.1720
+Val Loss: 2.5654, Val Acc: 0.0812
+Epoch 7/10
+                                                           
+Train Loss: 2.4652, Train Acc: 0.1790
+Val Loss: 2.5651, Val Acc: 0.0812
+Epoch 8/10
+                                                           
+Train Loss: 2.4539, Train Acc: 0.1889
+Val Loss: 2.5648, Val Acc: 0.0983
+Epoch 9/10
+                                                           
+Train Loss: 2.4532, Train Acc: 0.2007
+Val Loss: 2.5645, Val Acc: 0.0983
+Epoch 10/10
+
+Train Loss: 2.4341, Train Acc: 0.2190
+Val Loss: 2.5642, Val Acc: 0.0983
+
+Testing the best model...
+                                                          
+Test Loss: 2.3976, Test Acc: 0.2740
