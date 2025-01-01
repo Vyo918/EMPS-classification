@@ -7,7 +7,8 @@ from torch.utils.data import DataLoader
 from torchvision import datasets, transforms
 from tqdm.auto import tqdm
 
-device = "cuda" if torch.cuda.is_available() else "cpu"
+# device = "cuda" if torch.cuda.is_available() else "cpu"
+device = "cpu"
 
 def init_weights(m):
     if isinstance(m, nn.Conv2d):
@@ -90,7 +91,7 @@ def main():
             self.bn3 = nn.BatchNorm2d(120)
             
             self.fc1 = nn.Linear(120, 84)
-            self.fc2 = nn.Linear(84, 10)
+            self.fc2 = nn.Linear(84, 13)
             self.dropout = nn.Dropout(p=0.5)
         
         def forward(self, x):
