@@ -33,7 +33,7 @@ def load(DEVICE, DATA_PATH, MODEL_PATH, CONFMAT_PATH, MISSCLASSIFIED_PATH):
 def main():
     DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
     DATA_PATH = f"./dataset/my_dataset/model2/split/"
-    MODEL_PATH = f"./classification_model/model2/model/train.pt"
+    MODEL_PATH = f"./classification_model/model2/model/train(83.85).pt"
     CONFMAT_PATH = f"./classification_model/model2/result/confmat/load.jpg"
     MISSCLASSIFIED_PATH = f"./classification_model/model2/result/missclassified/load/"
     final_acc = load(DEVICE, DATA_PATH, MODEL_PATH, CONFMAT_PATH, MISSCLASSIFIED_PATH)
