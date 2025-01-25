@@ -86,45 +86,43 @@ def train_all_model(DEVICE, DATA_PATH, MODEL_PATH, CONFMAT_PATH, GRAPH_PATH, TEX
             "val_accuracy": []
             }
     
-    for epoch in range(epochs):
-        with open(TEXT_PATH, 'w') as f:
+    with open(TEXT_PATH, 'w') as f:
+        for epoch in range(epochs):
             f.write(f'Epoch {epoch + 1}/{epochs}:\n')
-        print(f'Epoch {epoch + 1}/{epochs}:')
-        
-        train_loss, train_acc = train(model=model,
-                                    data_loader=train_dataloader,
-                                    loss_fn=loss_fn,
-                                    optimizer=optimizer,
-                                    device=DEVICE)
-        with open(TEXT_PATH, 'w') as f:
+            print(f'Epoch {epoch + 1}/{epochs}:')
+            
+            train_loss, train_acc = train(model=model,
+                                        data_loader=train_dataloader,
+                                        loss_fn=loss_fn,
+                                        optimizer=optimizer,
+                                        device=DEVICE)
+
             f.write(f'Training Loss: {train_loss:.4f}, Accuracy: {train_acc:.2f}%\n')
-        print(f'Training Loss: {train_loss:.4f}, Accuracy: {train_acc:.2f}%')
-        
-        val_loss, val_acc, labels, preds = evaluate(model=model,
-                                                    data_loader=val_dataloader,
-                                                    loss_fn=loss_fn,
-                                                    device=DEVICE)
-        with open(TEXT_PATH, 'w') as f:
+            print(f'Training Loss: {train_loss:.4f}, Accuracy: {train_acc:.2f}%')
+            
+            val_loss, val_acc, labels, preds = evaluate(model=model,
+                                                        data_loader=val_dataloader,
+                                                        loss_fn=loss_fn,
+                                                        device=DEVICE)
+
             f.write(f'Testing Loss: {val_loss:.4f}, Accuracy: {val_acc:.2f}%\n')
-        print(f'Testing Loss: {val_loss:.4f}, Accuracy: {val_acc:.2f}%')
-        
-        history["train_loss"].append(train_loss)
-        history["val_loss"].append(val_loss)
-        history["train_accuracy"].append(train_acc)
-        history["val_accuracy"].append(val_acc)
-        
-        if val_acc > best_acc:
-            best_acc = val_acc
-            torch.jit.script(model).save(MODEL_PATH)
-            flag = False
-            with open(TEXT_PATH, 'w') as f:
+            print(f'Testing Loss: {val_loss:.4f}, Accuracy: {val_acc:.2f}%')
+            
+            history["train_loss"].append(train_loss)
+            history["val_loss"].append(val_loss)
+            history["train_accuracy"].append(train_acc)
+            history["val_accuracy"].append(val_acc)
+            
+            if val_acc > best_acc:
+                best_acc = val_acc
+                torch.jit.script(model).save(MODEL_PATH)
+                flag = False
                 f.write(f'Testing Loss: {val_loss:.4f}, Accuracy: {val_acc:.2f}%\n')
-            print(f"New best model saved with accuracy: {best_acc:.2f}%")
-        
-        scheduler.step()
-        with open(TEXT_PATH, 'w') as f:
+                print(f"New best model saved with accuracy: {best_acc:.2f}%")
+            
+            scheduler.step()
             f.write('\n')
-        print()
+            print()
         
     final_acc, labels, preds = conf_mat(model=model,
                                         data_loader=test_dataloader,
@@ -136,6 +134,7 @@ def train_all_model(DEVICE, DATA_PATH, MODEL_PATH, CONFMAT_PATH, GRAPH_PATH, TEX
     return final_acc
 
 def main():
+    # hierarchy structure
     arr = ["big_category", "top", "bottom", "footwear"]
     acc = {"big_category": 0,
            "top": 0, 
@@ -151,7 +150,19 @@ def main():
         TEXT_PATH = f"./classification_model/model1/result/text/{a}_train.txt"
         acc[a] = train_all_model(DEVICE, DATA_PATH, MODEL_PATH, CONFMAT_PATH, GRAPH_PATH, TEXT_PATH)
         print("-"*50)
+        
+    # without hierarchy structure
+    print(f"Training model:\n")
+    DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
+    DATA_PATH = f"./dataset/my_dataset/model1/split/"
+    MODEL_PATH = f"./classification_model/model1/model/model.pt"
+    CONFMAT_PATH = f"./classification_model/model1/result/confmat/model.jpg"
+    GRAPH_PATH = f"./classification_model/model1/result/graph/model.jpg"
+    TEXT_PATH = f"./classification_model/model1/result/text/model.txt"
+    accuracy = train_all_model(DEVICE, DATA_PATH, MODEL_PATH, CONFMAT_PATH, GRAPH_PATH, TEXT_PATH)
+    print("-"*50)
     for a in arr:
         print(f"Accuracy of {a} model: {acc[a]:.2f}%")
+    print(f"Accuracy of model: {accuracy:.2f}%")
 if __name__ == "__main__":
     main()

@@ -211,7 +211,7 @@ def train_all_model(DEVICE, DATA_PATH, MODEL_PATH, CONFMAT_PATH, GRAPH_PATH, TEX
     return final_acc
 
 def main():
-    print(f"Training top model:\n")
+    print(f"Training model:\n")
     DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
     DATA_PATH = f"./dataset/my_dataset/model2/split/"
     MODEL_PATH = f"./classification_model/model2/model/train.pt"
