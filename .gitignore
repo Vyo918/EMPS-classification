@@ -1,2 +1,8 @@
 model1/result/missclassified/
+model1/model/
+model1/main/*
+!model1/main/all_model_train.py
 model2/result/missclassified/
+model2/model/
+model2/main/*
+!model2/main/train.py
