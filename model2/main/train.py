@@ -133,7 +133,7 @@ def train_all_model(DEVICE, DATA_PATH, MODEL_PATH, CONFMAT_PATH, GRAPH_PATH, TEX
     
     train_dir = DATA_PATH + "train"
     trainset = datasets.ImageFolder(root=train_dir, transform=train_transform)
-    train_dataloader = DataLoader(trainset, batch_size=32, shuffle=True)
+    train_dataloader = DataLoader(trainset, batch_size=32, shuffle=True, drop_last=True)
     
     val_dir = DATA_PATH + "val"
     valset = datasets.ImageFolder(root=val_dir, transform=test_transform)
