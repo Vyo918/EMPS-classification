@@ -6,6 +6,7 @@ from torch.utils.data import DataLoader
 from torchvision import datasets, transforms
 from torchvision.models import convnext_tiny
 from utils import train, evaluate, conf_mat, plot_learning_curves
+import os
 
 def train_all_model(DEVICE, DATA_PATH, MODEL_PATH, CONFMAT_PATH, GRAPH_PATH, TEXT_PATH):
     # Criss Cross Attention Module
@@ -186,8 +187,8 @@ def train_all_model(DEVICE, DATA_PATH, MODEL_PATH, CONFMAT_PATH, GRAPH_PATH, TEX
             
             if val_acc > best_acc:
                 best_acc = val_acc
+                os.makedirs("./classification_model/model2/model/", exist_ok=True)
                 torch.jit.script(model).save(MODEL_PATH)
-                flag = False
                 
                 f.write(f'Testing Loss: {val_loss:.4f}, Accuracy: {val_acc:.2f}%\n')
                 print(f"New best model saved with accuracy: {best_acc:.2f}%")
