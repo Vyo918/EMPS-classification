@@ -1,1 +1,91 @@
+Epoch 1/20:
+Training Loss: 0.5968, Accuracy: 77.07%
+Testing Loss: 0.4843, Accuracy: 82.66%
+Testing Loss: 0.4843, Accuracy: 82.66%
+
+Epoch 2/20:
+Training Loss: 0.4102, Accuracy: 85.04%
+Testing Loss: 0.6954, Accuracy: 70.42%
+
+Epoch 3/20:
+Training Loss: 0.3600, Accuracy: 86.42%
+Testing Loss: 0.3758, Accuracy: 85.60%
+Testing Loss: 0.3758, Accuracy: 85.60%
+
+Epoch 4/20:
+Training Loss: 0.3404, Accuracy: 87.72%
+Testing Loss: 0.3463, Accuracy: 86.42%
+Testing Loss: 0.3463, Accuracy: 86.42%
+
+Epoch 5/20:
+Training Loss: 0.3124, Accuracy: 88.66%
+Testing Loss: 0.3544, Accuracy: 86.80%
+Testing Loss: 0.3544, Accuracy: 86.80%
+
+Epoch 6/20:
+Training Loss: 0.2684, Accuracy: 90.36%
+Testing Loss: 0.2980, Accuracy: 88.92%
+Testing Loss: 0.2980, Accuracy: 88.92%
+
+Epoch 7/20:
+Training Loss: 0.2508, Accuracy: 90.94%
+Testing Loss: 0.2827, Accuracy: 89.60%
+Testing Loss: 0.2827, Accuracy: 89.60%
+
+Epoch 8/20:
+Training Loss: 0.2445, Accuracy: 90.94%
+Testing Loss: 0.2848, Accuracy: 89.79%
+Testing Loss: 0.2848, Accuracy: 89.79%
+
+Epoch 9/20:
+Training Loss: 0.2399, Accuracy: 91.39%
+Testing Loss: 0.2807, Accuracy: 90.08%
+Testing Loss: 0.2807, Accuracy: 90.08%
+
+Epoch 10/20:
+Training Loss: 0.2381, Accuracy: 91.51%
+Testing Loss: 0.2870, Accuracy: 90.22%
+Testing Loss: 0.2870, Accuracy: 90.22%
+
+Epoch 11/20:
+Training Loss: 0.2240, Accuracy: 92.20%
+Testing Loss: 0.2808, Accuracy: 90.13%
+
+Epoch 12/20:
+Training Loss: 0.2278, Accuracy: 91.91%
+Testing Loss: 0.2793, Accuracy: 90.22%
+
+Epoch 13/20:
+Training Loss: 0.2292, Accuracy: 91.97%
+Testing Loss: 0.2792, Accuracy: 90.32%
+Testing Loss: 0.2792, Accuracy: 90.32%
+
+Epoch 14/20:
+Training Loss: 0.2235, Accuracy: 92.11%
+Testing Loss: 0.2792, Accuracy: 90.13%
+
+Epoch 15/20:
+Training Loss: 0.2221, Accuracy: 91.88%
+Testing Loss: 0.2780, Accuracy: 90.08%
+
+Epoch 16/20:
+Training Loss: 0.2238, Accuracy: 92.14%
+Testing Loss: 0.2795, Accuracy: 89.88%
+
+Epoch 17/20:
+Training Loss: 0.2261, Accuracy: 91.80%
+Testing Loss: 0.2775, Accuracy: 90.13%
+
+Epoch 18/20:
+Training Loss: 0.2292, Accuracy: 91.78%
+Testing Loss: 0.2766, Accuracy: 90.27%
+
+Epoch 19/20:
+Training Loss: 0.2235, Accuracy: 91.86%
+Testing Loss: 0.2760, Accuracy: 90.46%
+Testing Loss: 0.2760, Accuracy: 90.46%
+
+Epoch 20/20:
+Training Loss: 0.2230, Accuracy: 92.27%
+Testing Loss: 0.2793, Accuracy: 90.27%
 
