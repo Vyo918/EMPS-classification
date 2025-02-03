@@ -1,89 +1,87 @@
 Epoch 1/20:
-Training Loss: 0.4281, Accuracy: 82.06%
-Testing Loss: 0.3408, Accuracy: 85.71%
-Testing Loss: 0.3408, Accuracy: 85.71%
+Training Loss: 0.4079, Accuracy: 83.39%
+Testing Loss: 0.3296, Accuracy: 86.78%
+Testing Loss: 0.3296, Accuracy: 86.78%
 
 Epoch 2/20:
-Training Loss: 0.3374, Accuracy: 86.29%
-Testing Loss: 0.3943, Accuracy: 82.60%
+Training Loss: 0.3156, Accuracy: 87.17%
+Testing Loss: 0.3213, Accuracy: 86.73%
 
 Epoch 3/20:
-Training Loss: 0.2940, Accuracy: 87.68%
-Testing Loss: 0.3298, Accuracy: 85.83%
-Testing Loss: 0.3298, Accuracy: 85.83%
+Training Loss: 0.2805, Accuracy: 88.73%
+Testing Loss: 0.3172, Accuracy: 87.07%
+Testing Loss: 0.3172, Accuracy: 87.07%
 
 Epoch 4/20:
-Training Loss: 0.2765, Accuracy: 88.57%
-Testing Loss: 0.3213, Accuracy: 86.22%
-Testing Loss: 0.3213, Accuracy: 86.22%
+Training Loss: 0.2602, Accuracy: 89.24%
+Testing Loss: 0.2625, Accuracy: 90.05%
+Testing Loss: 0.2625, Accuracy: 90.05%
 
 Epoch 5/20:
-Training Loss: 0.2635, Accuracy: 89.14%
-Testing Loss: 0.2709, Accuracy: 88.21%
-Testing Loss: 0.2709, Accuracy: 88.21%
+Training Loss: 0.2512, Accuracy: 89.98%
+Testing Loss: 0.2695, Accuracy: 89.02%
 
 Epoch 6/20:
-Training Loss: 0.2266, Accuracy: 90.67%
-Testing Loss: 0.2536, Accuracy: 89.34%
-Testing Loss: 0.2536, Accuracy: 89.34%
+Training Loss: 0.2182, Accuracy: 91.35%
+Testing Loss: 0.2385, Accuracy: 90.68%
+Testing Loss: 0.2385, Accuracy: 90.68%
 
 Epoch 7/20:
-Training Loss: 0.2071, Accuracy: 91.47%
-Testing Loss: 0.2434, Accuracy: 89.85%
-Testing Loss: 0.2434, Accuracy: 89.85%
+Training Loss: 0.2018, Accuracy: 92.06%
+Testing Loss: 0.2338, Accuracy: 90.85%
+Testing Loss: 0.2338, Accuracy: 90.85%
 
 Epoch 8/20:
-Training Loss: 0.2083, Accuracy: 91.40%
-Testing Loss: 0.2395, Accuracy: 90.65%
-Testing Loss: 0.2395, Accuracy: 90.65%
+Training Loss: 0.2008, Accuracy: 91.92%
+Testing Loss: 0.2301, Accuracy: 91.30%
+Testing Loss: 0.2301, Accuracy: 91.30%
 
 Epoch 9/20:
-Training Loss: 0.2033, Accuracy: 91.68%
-Testing Loss: 0.2401, Accuracy: 90.19%
+Training Loss: 0.1961, Accuracy: 92.24%
+Testing Loss: 0.2347, Accuracy: 90.73%
 
 Epoch 10/20:
-Training Loss: 0.2070, Accuracy: 91.85%
-Testing Loss: 0.2381, Accuracy: 90.42%
+Training Loss: 0.1932, Accuracy: 91.95%
+Testing Loss: 0.2242, Accuracy: 91.48%
+Testing Loss: 0.2242, Accuracy: 91.48%
 
 Epoch 11/20:
-Training Loss: 0.2002, Accuracy: 91.96%
-Testing Loss: 0.2335, Accuracy: 90.76%
-Testing Loss: 0.2335, Accuracy: 90.76%
+Training Loss: 0.1906, Accuracy: 92.27%
+Testing Loss: 0.2243, Accuracy: 91.42%
 
 Epoch 12/20:
-Training Loss: 0.1976, Accuracy: 92.14%
-Testing Loss: 0.2340, Accuracy: 90.53%
+Training Loss: 0.1857, Accuracy: 92.70%
+Testing Loss: 0.2269, Accuracy: 91.08%
 
 Epoch 13/20:
-Training Loss: 0.1919, Accuracy: 92.21%
-Testing Loss: 0.2309, Accuracy: 90.87%
-Testing Loss: 0.2309, Accuracy: 90.87%
+Training Loss: 0.1872, Accuracy: 92.61%
+Testing Loss: 0.2252, Accuracy: 91.13%
 
 Epoch 14/20:
-Training Loss: 0.1889, Accuracy: 92.35%
-Testing Loss: 0.2329, Accuracy: 90.70%
+Training Loss: 0.1893, Accuracy: 92.44%
+Testing Loss: 0.2273, Accuracy: 90.90%
 
 Epoch 15/20:
-Training Loss: 0.1956, Accuracy: 91.83%
-Testing Loss: 0.2315, Accuracy: 90.53%
+Training Loss: 0.1887, Accuracy: 92.34%
+Testing Loss: 0.2277, Accuracy: 91.13%
 
 Epoch 16/20:
-Training Loss: 0.1891, Accuracy: 92.29%
-Testing Loss: 0.2326, Accuracy: 90.76%
+Training Loss: 0.1868, Accuracy: 92.56%
+Testing Loss: 0.2266, Accuracy: 91.25%
 
 Epoch 17/20:
-Training Loss: 0.1910, Accuracy: 92.52%
-Testing Loss: 0.2309, Accuracy: 90.65%
+Training Loss: 0.1842, Accuracy: 92.65%
+Testing Loss: 0.2268, Accuracy: 91.13%
 
 Epoch 18/20:
-Training Loss: 0.1887, Accuracy: 92.48%
-Testing Loss: 0.2362, Accuracy: 90.36%
+Training Loss: 0.1880, Accuracy: 92.21%
+Testing Loss: 0.2279, Accuracy: 91.08%
 
 Epoch 19/20:
-Training Loss: 0.1903, Accuracy: 92.40%
-Testing Loss: 0.2332, Accuracy: 90.65%
+Training Loss: 0.1885, Accuracy: 92.16%
+Testing Loss: 0.2259, Accuracy: 91.36%
 
 Epoch 20/20:
-Training Loss: 0.1943, Accuracy: 92.02%
-Testing Loss: 0.2321, Accuracy: 90.76%
+Training Loss: 0.1829, Accuracy: 92.62%
+Testing Loss: 0.2274, Accuracy: 91.13%
 
