@@ -146,7 +146,7 @@ def train_all_model(DEVICE, DATA_PATH, MODEL_PATH, CONFMAT_PATH, GRAPH_PATH, TEX
     model = ConvNeXtTiny(num_classes=len(testset.classes)).to(DEVICE)
     class_weights = torch.tensor([1.0] * len(trainset.classes)).to(DEVICE)  # Adjust weights if needed
     loss_fn = nn.CrossEntropyLoss(weight=class_weights)
-    optimizer = optim.AdamW(model.parameters(), lr=0.0005, weight_decay=0.01)
+    optimizer = optim.AdamW(model.parameters(), lr=0.0005, weight_decay=0.05)
     scheduler = lr_scheduler.StepLR(optimizer, step_size=5, gamma=0.5)
     
     best_acc = 0
