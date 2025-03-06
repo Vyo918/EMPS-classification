@@ -74,7 +74,7 @@ def train_all_model(DEVICE, DATA_PATH, MODEL_PATH, CONFMAT_PATH, GRAPH_PATH, TEX
             self.conv1 = nn.Conv2d(3, 96, kernel_size=4, stride=4)
             self.block1 = ConvNeXtBlock(96, 96)
             self.attn1 = CrissCrossAttention(96)  # first attention module
-            self.dropout1 = nn.Dropout(0.3)  # Dropout after first attention block
+            self.dropout1 = nn.Dropout(0.5)  # Dropout after first attention block
 
             self.downsample1 = nn.Conv2d(96, 192, kernel_size=2, stride=2)
             self.block2 = ConvNeXtBlock(192, 192)
@@ -85,7 +85,7 @@ def train_all_model(DEVICE, DATA_PATH, MODEL_PATH, CONFMAT_PATH, GRAPH_PATH, TEX
             self.downsample3 = nn.Conv2d(384, 768, kernel_size=2, stride=2)
             self.block4 = ConvNeXtBlock(768, 768)
             self.attn2 = SpatialAttention(768)  # second attention module
-            self.dropout2 = nn.Dropout(0.3)  # Dropout after second attention block
+            self.dropout2 = nn.Dropout(0.5)  # Dropout after second attention block
 
             self.global_avgpool = nn.AdaptiveAvgPool2d(1)
             self.fc = nn.Linear(768, num_classes)
