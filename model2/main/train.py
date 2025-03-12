@@ -144,7 +144,7 @@ def train_all_model(DEVICE, DATA_PATH, MODEL_PATH, CONFMAT_PATH, GRAPH_PATH, TEX
     test_dataloader = DataLoader(testset, batch_size=32, shuffle=False)
 
     model = ConvNeXtTiny(num_classes=len(testset.classes)).to(DEVICE)
-    class_weights = torch.tensor([1.0] * len(trainset.classes)).to(DEVICE)  # Adjust weights if needed
+    class_weights = torch.tensor([1.0] * len(trainset.classes)).to(DEVICE)
     loss_fn = nn.CrossEntropyLoss(weight=class_weights)
     optimizer = optim.AdamW(model.parameters(), lr=0.0003, weight_decay=0.05)
     scheduler = lr_scheduler.OneCycleLR(optimizer, max_lr=0.001, epochs=35, steps_per_epoch=len(train_dataloader))
@@ -185,7 +185,7 @@ def train_all_model(DEVICE, DATA_PATH, MODEL_PATH, CONFMAT_PATH, GRAPH_PATH, TEX
             history["train_accuracy"].append(train_acc)
             history["val_accuracy"].append(val_acc)
             
-            if val_acc > best_acc and val_loss < min(history["val_loss"][-5:]):
+            if val_acc > best_acc:
                 best_acc = val_acc
                 os.makedirs("./classification_model/model2/model/", exist_ok=True)
                 torch.jit.script(model).save(MODEL_PATH)
