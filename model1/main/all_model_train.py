@@ -101,7 +101,7 @@ def train_all_model(DEVICE, DATA_PATH, MODEL_PATH, CONFMAT_PATH, GRAPH_PATH, TEX
             f.write(f'Training Loss: {train_loss:.4f}, Accuracy: {train_acc:.2f}%\n')
             print(f'Training Loss: {train_loss:.4f}, Accuracy: {train_acc:.2f}%')
             
-            val_loss, val_acc, labels, preds = evaluate(model=model,
+            val_loss, val_acc, labels, preds, below_threshold, confidences  = evaluate(model=model,
                                                         data_loader=val_dataloader,
                                                         loss_fn=loss_fn,
                                                         device=DEVICE)
@@ -126,7 +126,7 @@ def train_all_model(DEVICE, DATA_PATH, MODEL_PATH, CONFMAT_PATH, GRAPH_PATH, TEX
             f.write('\n')
             print()
         
-    final_acc, labels, preds = conf_mat(model=model,
+    final_acc, labels, preds, below_threshold, confidences= conf_mat(model=model,
                                         data_loader=test_dataloader,
                                         dataset=testset,
                                         device=DEVICE,
@@ -137,11 +137,11 @@ def train_all_model(DEVICE, DATA_PATH, MODEL_PATH, CONFMAT_PATH, GRAPH_PATH, TEX
 
 def main():
     # hierarchy structure
-    arr = ["big_category", "top", "bottom", "footwear"]
-    acc = {"big_category": 0,
-           "top": 0, 
-           "bottom": 0, 
-           "footwear": 0}
+    arr = ["big_category"]#, "top", "bottom", "footwear"]
+    acc = {"big_category": 0,}
+        #    "top": 0, 
+        #    "bottom": 0, 
+        #    "footwear": 0}
     for a in arr:
         print(f"Training {a} model:\n")
         DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
@@ -154,17 +154,17 @@ def main():
         print("-"*50)
         
     # without hierarchy structure
-    print(f"Training model:\n")
-    DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
-    DATA_PATH = f"./dataset/my_dataset/model1/split/"
-    MODEL_PATH = f"./classification_model/model1/model/model.pt"
-    CONFMAT_PATH = f"./classification_model/model1/result/confmat/model.jpg"
-    GRAPH_PATH = f"./classification_model/model1/result/graph/model.jpg"
-    TEXT_PATH = f"./classification_model/model1/result/text/model.txt"
-    accuracy = train_all_model(DEVICE, DATA_PATH, MODEL_PATH, CONFMAT_PATH, GRAPH_PATH, TEXT_PATH)
-    print("-"*50)
+    # print(f"Training model:\n")
+    # DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
+    # DATA_PATH = f"./dataset/my_dataset/model1/split/"
+    # MODEL_PATH = f"./classification_model/model1/model/model.pt"
+    # CONFMAT_PATH = f"./classification_model/model1/result/confmat/model.jpg"
+    # GRAPH_PATH = f"./classification_model/model1/result/graph/model.jpg"
+    # TEXT_PATH = f"./classification_model/model1/result/text/model.txt"
+    # accuracy = train_all_model(DEVICE, DATA_PATH, MODEL_PATH, CONFMAT_PATH, GRAPH_PATH, TEXT_PATH)
+    # print("-"*50)
     for a in arr:
         print(f"Accuracy of {a} model: {acc[a]:.2f}%")
-    print(f"Accuracy of model: {accuracy:.2f}%")
+    # print(f"Accuracy of model: {accuracy:.2f}%")
 if __name__ == "__main__":
     main()

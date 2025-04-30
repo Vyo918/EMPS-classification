@@ -1,5 +1,6 @@
 import torch
 from torch import nn
+from torch.nn.functional import softmax
 from torch.utils.data import DataLoader
 from torchvision import datasets
 from tqdm.auto import tqdm
@@ -66,7 +67,9 @@ def train(model: nn.Module,
 def evaluate(model: nn.Module,
              data_loader: DataLoader,
              loss_fn: nn.Module,
-             device: torch.device):
+             device: torch.device,
+             threshold: int = 0,
+             ):
     """
     Evaluate the model.
 
@@ -85,6 +88,8 @@ def evaluate(model: nn.Module,
     total = 0
     all_labels = []
     all_preds = []
+    below_threshold_count = 0
+    all_confidences = []
 
     with torch.no_grad():
         for images, labels in tqdm(data_loader, desc="Evaluating"):
@@ -95,17 +100,37 @@ def evaluate(model: nn.Module,
             loss = loss_fn(outputs, labels)
 
             # calculate accuracy
-            _, predicted = torch.max(outputs.data, 1)
-            total += labels.size(0)
-            correct += (predicted == labels).sum().item()
+            prob, predicted = torch.max(softmax(outputs, dim=1), 1)
+            # total += labels.size(0)
+            # correct += (predicted == labels).sum().item()
+            all_confidences.extend(prob.cpu().numpy())  # Collect confidence scores
+            valid_predictions = prob > threshold
+            below_threshold_count += (~valid_predictions).sum().item()
+            total += valid_predictions.sum().item()  # Count only valid predictions
+            correct += (predicted[valid_predictions] == labels[valid_predictions]).sum().item()
+            
             running_loss += loss.item() * images.size(0)
             
             all_labels.extend(labels.cpu().numpy())
             all_preds.extend(predicted.cpu().numpy())
 
+    # PLOTTING CONFIDENCE
+    import matplotlib.pyplot as plt
+    import numpy as np
+
+    plt.hist(all_confidences, bins=20, edgecolor='black', alpha=0.7)
+    plt.xlabel("Confidence Score")
+    plt.ylabel("Frequency")
+    plt.title("Distribution of Model Prediction Confidences")
+    # plt.show()
+    new_threshold = np.percentile(all_confidences, 5)  # Set threshold at 5th percentile
+    print(f"Suggested threshold: {new_threshold:.2f}")
+
+
     epoch_loss = running_loss / total
     accuracy = 100 * correct / total
-    return epoch_loss, accuracy, np.array(all_labels), np.array(all_preds)
+    return epoch_loss, accuracy, np.array(all_labels), np.array(all_preds), below_threshold_count, all_confidences
+
 
 def conf_mat(data_loader: DataLoader,
              dataset: datasets.ImageFolder,
@@ -113,7 +138,8 @@ def conf_mat(data_loader: DataLoader,
              model_path: str,
              confmat_path: str = None,
              model: nn.Module = None,
-             show=False
+             show=False,
+             threshold: int = 0,
              ):
     """
     Generate and save the confusion matrix for the model's predictions.
@@ -139,10 +165,12 @@ def conf_mat(data_loader: DataLoader,
         
     model.to(device)
     
-    _, acc, labels, preds= evaluate(model=model,
+    _, acc, labels, preds, below_threshold, confidences= evaluate(model=model,
                                     data_loader=data_loader,
                                     loss_fn=nn.CrossEntropyLoss(),
-                                    device=device)
+                                    device=device,
+                                    threshold=threshold,
+                                    )
     
     confmat = ConfusionMatrix(num_classes=len(dataset.classes), task='multiclass')
     confmat_tensor = confmat(preds=torch.tensor(preds), target=torch.tensor(labels))
@@ -159,12 +187,14 @@ def conf_mat(data_loader: DataLoader,
     if show:
         plt.show()
 
-    return acc, labels, preds
+    return acc, labels, preds, below_threshold, confidences
 
 def save_misclassified_images(data_loader: DataLoader,
                               labels,
                               preds,
-                              output_dir="./classification_model/model1/result/result_comparison"):
+                              confidences,
+                              threshold=0,
+                              output_dir="./classification_model/model1/result/"):
     """
     Save all misclassified images to the specified output directory.
 
@@ -179,22 +209,38 @@ def save_misclassified_images(data_loader: DataLoader,
     Returns:
         None
     """
-    if os.path.exists(output_dir):
-        shutil.rmtree(output_dir)  # Remove existing directory if exists
-    os.makedirs(output_dir, exist_ok=True)
+    misclassified_dir = os.path.join(output_dir, "misclassified")
+    below_threshold_dir = os.path.join(output_dir, "below_threshold")
+    correct_dir = os.path.join(output_dir, "correctly_classified")
+    # for dir in [misclassified_dir, below_threshold_dir, correct_dir]:
+    #     if os.path.exists(dir):
+    #         shutil.rmtree(dir)  # Remove existing directory if exists
+    #     os.makedirs(dir, exist_ok=True)
     
-    for i, (image, label, pred) in tqdm(enumerate(zip(data_loader.dataset, labels, preds)), desc="Comparing"):
-        if label != pred:
-            original_image_path = data_loader.dataset.samples[i][0]
-            
-            if os.path.exists(original_image_path):
-                class_dir = os.path.join(output_dir, f"True_{data_loader.dataset.classes[label]}_Pred_{data_loader.dataset.classes[pred]}")
-                os.makedirs(class_dir, exist_ok=True)
+    for i, ((image, _), label, pred, conf) in tqdm(enumerate(zip(data_loader.dataset, labels, preds, confidences)), desc="Saving Images"):
+        original_image_path = data_loader.dataset.samples[i][0]
 
-                dest_path = os.path.join(class_dir, f"missclassified_{getParent(original_image_path, 0)}.png")
-                shutil.copy(original_image_path, dest_path)
-            else:
-                print(f"can't find the path: {original_image_path}")
+        # Skip if file doesn't exist
+        if not os.path.exists(original_image_path):
+            print(f"Can't find the path: {original_image_path}")
+            continue
+        
+        # Define category-based directories
+        true_label = data_loader.dataset.classes[label]
+        pred_label = data_loader.dataset.classes[pred]
+
+        if label != pred:
+            class_dir = os.path.join(misclassified_dir, f"True_{true_label}_Pred_{pred_label}")
+        elif conf < threshold:
+            class_dir = os.path.join(below_threshold_dir, true_label)
+        else:
+            class_dir = os.path.join(correct_dir, pred_label)
+            # continue  # Correctly classified & above threshold, no need to save
+
+        os.makedirs(class_dir, exist_ok=True)
+
+        dest_path = os.path.join(class_dir, f"image_{i}.png")
+        shutil.copy(original_image_path, dest_path)
 
 def plot_learning_curves(history,
                          acc,

@@ -146,7 +146,7 @@ def train_all_model(DEVICE, DATA_PATH, MODEL_PATH, CONFMAT_PATH, GRAPH_PATH, TEX
     model = ConvNeXtTiny(num_classes=len(testset.classes)).to(DEVICE)
     class_weights = torch.tensor([1.0] * len(trainset.classes)).to(DEVICE)
     loss_fn = nn.CrossEntropyLoss(weight=class_weights)
-    optimizer = optim.AdamW(model.parameters(), lr=0.0003, weight_decay=0.05)
+    optimizer = optim.AdamW(model.parameters(), lr=0.0001, weight_decay=0.05)
     scheduler = lr_scheduler.OneCycleLR(optimizer, max_lr=0.001, epochs=35, steps_per_epoch=len(train_dataloader))
     
     best_acc = 0
@@ -214,7 +214,7 @@ def train_all_model(DEVICE, DATA_PATH, MODEL_PATH, CONFMAT_PATH, GRAPH_PATH, TEX
 def main():
     print(f"Training model:\n")
     DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
-    DATA_PATH = f"./dataset/my_dataset/model2/split/"
+    DATA_PATH = f"./dataset/my_dataset/model2/split_without_boho/"
     MODEL_PATH = f"./classification_model/model2/model/train.pt"
     CONFMAT_PATH = f"./classification_model/model2/result/confmat/train.jpg"
     GRAPH_PATH = f"./classification_model/model2/result/graph/train.jpg"

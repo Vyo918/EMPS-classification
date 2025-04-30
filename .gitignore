@@ -1,4 +1,6 @@
-model1/result/missclassified/
+model1/result/misclassified/*
+model1/result/missclassified/*
+model1/result/correctly_classified/*
 model1/model/*
 !model1/model/big_category.pt
 !model1/model/top.pt
@@ -8,7 +10,9 @@ model1/model/*
 model1/main/*
 !model1/main/all_model_train.py
 !model1/main/utils.py
-model2/result/missclassified/
+model2/result/misclassified/*
+model2/result/missclassified/*
+model2/result/correctly_classified/*
 model2/model/*
 !model2/model/train.pt
 model2/main/*
