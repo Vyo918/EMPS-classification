@@ -47,32 +47,75 @@ def main():
             shutil.rmtree(dir)  # Remove existing directory if exists
         os.makedirs(dir, exist_ok=True)
 
-    acc = 72.14
-    threshold = 0.41
-    note = "aug"
+    acc = {
+        "aug": 74.86,
+        "no_boho": 72.74,
+    }
+    threshold = {
+        "aug": 0.49,
+        "no_boho": 0.46,
+    }
+    notes = ["aug", "no_boho"]
 
-    DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
-    DATA_PATH = f"./dataset/my_dataset/model2/split_with_augmentation/"
-    MODEL_PATH = f"./classification_model/model2/model/train({acc}, {threshold}, {note}).pt"
-    CONFMAT_PATH = f"./classification_model/model2/result/confmat/load.jpg"
-    MISSCLASSIFIED_PATH = f"./classification_model/model2/result/missclassified/load/"
-    final_acc, below_threshold, total_image, new_threshold = load(DEVICE, DATA_PATH, MODEL_PATH, CONFMAT_PATH, MISSCLASSIFIED_PATH, threshold)
-    print(f"model accuracy: {final_acc:.5f}%")
-    print(f"{below_threshold} images out of {total_image} are below threshold ({threshold:.2f})")
-    
-    if new_threshold != threshold:
-        print(f"New threshold: {new_threshold:.2f}")
-        threshold = new_threshold
-        final_acc, below_threshold, total_image, new_threshold = load(DEVICE, DATA_PATH, MODEL_PATH, CONFMAT_PATH, MISSCLASSIFIED_PATH, threshold)
-    print(f"model accuracy: {final_acc:.5f}%")
-    print(f"{below_threshold} images out of {total_image} are below threshold ({threshold:.2f})")
+    for note in notes:
+        DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
+        if note == "aug":
+            DATA_PATH = f"./dataset/my_dataset/model2/split_with_augmentation/"
+        else:
+            DATA_PATH = f"./dataset/my_dataset/model2/split_without_boho/"
+        MODEL_PATH = f"./classification_model/model2/model/train({acc[note]}, {threshold[note]}, {note}).pt"
+        CONFMAT_PATH = f"./classification_model/model2/result/confmat/load.jpg"
+        MISSCLASSIFIED_PATH = f"./classification_model/model2/result/missclassified/load/"
+        final_acc, below_threshold, total_image, new_threshold = load(DEVICE, DATA_PATH, MODEL_PATH, CONFMAT_PATH, MISSCLASSIFIED_PATH, threshold[note])
+        print(f"{note} model accuracy: {final_acc:.5f}%")
+        print(f"{below_threshold} images out of {total_image} are below threshold ({threshold[note]:.2f})")
+        
+        if new_threshold != threshold[note]:
+            print(f"New threshold: {new_threshold:.2f}")
+            threshold[note] = new_threshold
+            final_acc, below_threshold, total_image, new_threshold = load(DEVICE, DATA_PATH, MODEL_PATH, CONFMAT_PATH, MISSCLASSIFIED_PATH, threshold[note])
+            print(f"{note} model accuracy: {final_acc:.5f}%")
 
-    print()
-    # print(load(DEVICE, DATA_PATH, MODEL_PATH, CONFMAT_PATH, MISSCLASSIFIED_PATH, threshold))
+            
+
+            import os
+            import re
+
+            original_name = MODEL_PATH
+            # Split into directory and filename
+            dir_path, filename = os.path.split(original_name)
+
+            # Apply regex to filename
+            match = re.match(r"train\(([^)]+)\).pt", filename)
+            if match:
+                # Split the extracted values by commas and strip whitespace
+                values = [v.strip() for v in match.group(1).split(',')]
+                
+                # Update the second value (index 1) to 0.50 and append the new value 80.02
+                values[1] = f"{new_threshold:.2f}"
+                values.insert(2, f"{final_acc:.2f}")
+                
+                # Construct the new filename
+                new_inner = ", ".join(values)
+                new_name = f"train({new_inner}).pt"
+                
+                # Rename the file
+                # os.rename(filename, new_name)
+                os.rename(original_name, os.path.join(dir_path, new_name))
+                print(f"Renamed {filename} to {new_name}")
+            else:
+                print("Filename pattern not matched.")
+        
+        print(f"{note} model accuracy: {final_acc:.5f}%")
+        print(f"{below_threshold} images out of {total_image} are below threshold ({threshold[note]:.2f})")
+
+        print()
+        # print(load(DEVICE, DATA_PATH, MODEL_PATH, CONFMAT_PATH, MISSCLASSIFIED_PATH, threshold))
 
 
-# if __name__ == "__main__":
-#     import torch
+if __name__ == "__main__":
+    main()
+    # import torch
 #     from torch.nn.functional import softmax
 #     import torchvision.transforms as T
 #     from PIL import Image
@@ -138,5 +181,3 @@ def main():
 #         style = LABEL[pred.item()]
 
 #         print(style)
-
-    main()
