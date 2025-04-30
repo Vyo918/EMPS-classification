@@ -129,7 +129,7 @@ def evaluate(model: nn.Module,
 
     epoch_loss = running_loss / total
     accuracy = 100 * correct / total
-    return epoch_loss, accuracy, np.array(all_labels), np.array(all_preds), below_threshold_count, all_confidences
+    return epoch_loss, accuracy, np.array(all_labels), np.array(all_preds), below_threshold_count, all_confidences, new_threshold
 
 
 def conf_mat(data_loader: DataLoader,
@@ -165,7 +165,7 @@ def conf_mat(data_loader: DataLoader,
         
     model.to(device)
     
-    _, acc, labels, preds, below_threshold, confidences= evaluate(model=model,
+    _, acc, labels, preds, below_threshold, confidences, threshold= evaluate(model=model,
                                     data_loader=data_loader,
                                     loss_fn=nn.CrossEntropyLoss(),
                                     device=device,
@@ -173,6 +173,8 @@ def conf_mat(data_loader: DataLoader,
                                     )
     
     confmat = ConfusionMatrix(num_classes=len(dataset.classes), task='multiclass')
+    print(f"np.unique(labels): {np.unique(labels)}")
+    print(f"np.unique(preds): {np.unique(preds)}")
     confmat_tensor = confmat(preds=torch.tensor(preds), target=torch.tensor(labels))
 
     fig, ax = plot_confusion_matrix(
@@ -187,14 +189,14 @@ def conf_mat(data_loader: DataLoader,
     if show:
         plt.show()
 
-    return acc, labels, preds, below_threshold, confidences
+    return acc, labels, preds, below_threshold, confidences, threshold
 
 def save_misclassified_images(data_loader: DataLoader,
                               labels,
                               preds,
                               confidences,
                               threshold=0,
-                              output_dir="./classification_model/model2/result/"):
+                              output_dir="./classification_model/model1/result/"):
     """
     Save all misclassified images to the specified output directory.
 
@@ -235,7 +237,8 @@ def save_misclassified_images(data_loader: DataLoader,
             class_dir = os.path.join(below_threshold_dir, true_label)
         else:
             class_dir = os.path.join(correct_dir, pred_label)
-            # continue  # Correctly classified & above threshold
+            # continue  # Correctly classified & above threshold, no need to save
+
         os.makedirs(class_dir, exist_ok=True)
 
         dest_path = os.path.join(class_dir, f"image_{i}.png")

@@ -129,7 +129,7 @@ def evaluate(model: nn.Module,
 
     epoch_loss = running_loss / total
     accuracy = 100 * correct / total
-    return epoch_loss, accuracy, np.array(all_labels), np.array(all_preds), below_threshold_count, all_confidences
+    return epoch_loss, accuracy, np.array(all_labels), np.array(all_preds), below_threshold_count, all_confidences, new_threshold
 
 
 def conf_mat(data_loader: DataLoader,
@@ -165,7 +165,7 @@ def conf_mat(data_loader: DataLoader,
         
     model.to(device)
     
-    _, acc, labels, preds, below_threshold, confidences= evaluate(model=model,
+    _, acc, labels, preds, below_threshold, confidences, threshold= evaluate(model=model,
                                     data_loader=data_loader,
                                     loss_fn=nn.CrossEntropyLoss(),
                                     device=device,
@@ -187,7 +187,7 @@ def conf_mat(data_loader: DataLoader,
     if show:
         plt.show()
 
-    return acc, labels, preds, below_threshold, confidences
+    return acc, labels, preds, below_threshold, confidences, threshold
 
 def save_misclassified_images(data_loader: DataLoader,
                               labels,
@@ -212,10 +212,10 @@ def save_misclassified_images(data_loader: DataLoader,
     misclassified_dir = os.path.join(output_dir, "misclassified")
     below_threshold_dir = os.path.join(output_dir, "below_threshold")
     correct_dir = os.path.join(output_dir, "correctly_classified")
-    # for dir in [misclassified_dir, below_threshold_dir, correct_dir]:
-    #     if os.path.exists(dir):
-    #         shutil.rmtree(dir)  # Remove existing directory if exists
-    #     os.makedirs(dir, exist_ok=True)
+    for dir in [misclassified_dir, below_threshold_dir, correct_dir]:
+        if os.path.exists(dir):
+            shutil.rmtree(dir)  # Remove existing directory if exists
+        os.makedirs(dir, exist_ok=True)
     
     for i, ((image, _), label, pred, conf) in tqdm(enumerate(zip(data_loader.dataset, labels, preds, confidences)), desc="Saving Images"):
         original_image_path = data_loader.dataset.samples[i][0]

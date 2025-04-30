@@ -98,16 +98,16 @@ def train_all_model(DEVICE, DATA_PATH, MODEL_PATH, CONFMAT_PATH, GRAPH_PATH, TEX
                                         optimizer=optimizer,
                                         device=DEVICE)
 
-            f.write(f'Training Loss: {train_loss:.4f}, Accuracy: {train_acc:.2f}%\n')
-            print(f'Training Loss: {train_loss:.4f}, Accuracy: {train_acc:.2f}%')
+            f.write(f'Training Loss: {train_loss:.4f}, Accuracy: {train_acc:.5f}%\n')
+            print(f'Training Loss: {train_loss:.4f}, Accuracy: {train_acc:.5f}%')
             
-            val_loss, val_acc, labels, preds, below_threshold, confidences  = evaluate(model=model,
+            val_loss, val_acc, labels, preds, below_threshold, confidences, threshold  = evaluate(model=model,
                                                         data_loader=val_dataloader,
                                                         loss_fn=loss_fn,
                                                         device=DEVICE)
 
-            f.write(f'Testing Loss: {val_loss:.4f}, Accuracy: {val_acc:.2f}%\n')
-            print(f'Testing Loss: {val_loss:.4f}, Accuracy: {val_acc:.2f}%')
+            f.write(f'Testing Loss: {val_loss:.4f}, Accuracy: {val_acc:.5f}%\n')
+            print(f'Testing Loss: {val_loss:.4f}, Accuracy: {val_acc:.5f}%')
             
             history["train_loss"].append(train_loss)
             history["val_loss"].append(val_loss)
@@ -118,39 +118,46 @@ def train_all_model(DEVICE, DATA_PATH, MODEL_PATH, CONFMAT_PATH, GRAPH_PATH, TEX
                 best_acc = val_acc
                 os.makedirs("./classification_model/model1/model/", exist_ok=True)
                 torch.jit.script(model).save(MODEL_PATH)
-                flag = False
-                f.write(f'Testing Loss: {val_loss:.4f}, Accuracy: {val_acc:.2f}%\n')
-                print(f"New best model saved with accuracy: {best_acc:.2f}%")
+
+                f.write(f'Testing Loss: {val_loss:.4f}, Accuracy: {val_acc:.5f}%\n')
+                print(f"New best model saved with accuracy: {best_acc:.5f}%")
             
             scheduler.step()
             f.write('\n')
             print()
         
-    final_acc, labels, preds, below_threshold, confidences= conf_mat(model=model,
+    final_acc, labels, preds, below_threshold, confidences = conf_mat(model=model,
                                         data_loader=test_dataloader,
                                         dataset=testset,
                                         device=DEVICE,
                                         model_path=MODEL_PATH,
                                         confmat_path=CONFMAT_PATH)
-    plot_learning_curves(history, final_acc, graph_path=GRAPH_PATH)   
-    return final_acc
+    print(f"Final accuracy: {final_acc:.5f}%")
+    plot_learning_curves(history, final_acc, graph_path=GRAPH_PATH)
+    os.rename(TEXT_PATH, TEXT_PATH.replace(".txt", f"_{final_acc:.2f}.txt"))
+    os.rename(MODEL_PATH, MODEL_PATH.replace(".pt", f"({final_acc:.2f}, {threshold:.2f}).pt"))
+    return final_acc, threshold
 
 def main():
     # hierarchy structure
-    arr = ["big_category"]#, "top", "bottom", "footwear"]
-    acc = {"big_category": 0,}
-        #    "top": 0, 
-        #    "bottom": 0, 
+    arr = ["big_category", "top", "bottom"]#, "footwear"]
+    acc = {"big_category": 0,
+           "top": 0, 
+           "bottom": 0}#, 
         #    "footwear": 0}
+    threshold = {"big_category": 0,
+                "top": 0, 
+                 "bottom": 0}#, 
+                #  "footwear": 0}
     for a in arr:
         print(f"Training {a} model:\n")
         DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
-        DATA_PATH = f"./dataset/my_dataset/model1/improved/{a}/"
+        DATA_PATH = f"./dataset/my_dataset/model1/improved_no_footwear/{a}/"
         MODEL_PATH = f"./classification_model/model1/model/{a}.pt"
         CONFMAT_PATH = f"./classification_model/model1/result/confmat/{a}_train.jpg"
         GRAPH_PATH = f"./classification_model/model1/result/graph/{a}_train.jpg"
         TEXT_PATH = f"./classification_model/model1/result/text/{a}_train.txt"
-        acc[a] = train_all_model(DEVICE, DATA_PATH, MODEL_PATH, CONFMAT_PATH, GRAPH_PATH, TEXT_PATH)
+        acc[a], threshold[a] = train_all_model(DEVICE, DATA_PATH, MODEL_PATH, CONFMAT_PATH, GRAPH_PATH, TEXT_PATH)
         print("-"*50)
         
     # without hierarchy structure
@@ -164,7 +171,7 @@ def main():
     # accuracy = train_all_model(DEVICE, DATA_PATH, MODEL_PATH, CONFMAT_PATH, GRAPH_PATH, TEXT_PATH)
     # print("-"*50)
     for a in arr:
-        print(f"Accuracy of {a} model: {acc[a]:.2f}%")
-    # print(f"Accuracy of model: {accuracy:.2f}%")
+        print(f"{a}:\nAccuracy: {acc[a]:.5f}%\nthrehold: {threshold[a]:.2f}\n")
+    # print(f"Accuracy of model: {accuracy:.5f}%")
 if __name__ == "__main__":
     main()
